@@ -21,7 +21,7 @@ public class Like_Playlist {
     private LocalDateTime createAt;
 
     @ManyToOne
-    private PlayList playList;
+    private Playlist playList;
 
 
     @ManyToOne
@@ -48,11 +48,11 @@ public class Like_Playlist {
         this.createAt = createAt;
     }
 
-    public PlayList getPlayList() {
+    public Playlist getPlayList() {
         return playList;
     }
 
-    public void setPlayList(PlayList playList) {
+    public void setPlayList(Playlist playList) {
         this.playList = playList;
     }
 

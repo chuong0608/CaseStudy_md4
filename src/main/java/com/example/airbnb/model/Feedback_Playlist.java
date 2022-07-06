@@ -16,7 +16,7 @@ public class Feedback_Playlist {
     private String comment;
 
     @ManyToOne
-    private PlayList playList;
+    private Playlist playList;
 
     @ManyToOne
     private User user;
@@ -42,11 +42,11 @@ public class Feedback_Playlist {
         this.comment = comment;
     }
 
-    public PlayList getPlayList() {
+    public Playlist getPlayList() {
         return playList;
     }
 
-    public void setPlayList(PlayList playList) {
+    public void setPlayList(Playlist playList) {
         this.playList = playList;
     }
 
