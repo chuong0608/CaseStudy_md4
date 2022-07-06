@@ -82,6 +82,7 @@ public class PlaylistController {
         return new ResponseEntity<>(playlists, HttpStatus.OK);
     }
 
+    // list playlist
     @GetMapping("/find-by-name-playlist")
     public ResponseEntity findByNamePlaylist(@RequestParam String name ) {
         Playlist playlist = playlistService.findByName(name);

@@ -57,8 +57,6 @@ public class SongController {
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
-
-
     //update song
     @PutMapping("/update-song")
     public ResponseEntity<Song> updateSong(@RequestBody Song song) {
@@ -66,9 +64,17 @@ public class SongController {
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
 
+    // song by singer
     @GetMapping("/all-song-by-singer/{id}")
     public ResponseEntity<Iterable<Song>> findAllBySingerId(@PathVariable Long id) {
         Iterable<Song> songs = songService.findAllBySingerId(id);
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    // list song by createAt desc
+    @GetMapping("/list-song-by-create-desc")
+    public ResponseEntity<Iterable<Song>> findAllBySingerId() {
+        Iterable<Song> songs = songService.findAllByCreateAtDesc();
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 

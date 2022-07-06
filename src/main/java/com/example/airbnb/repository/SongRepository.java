@@ -2,6 +2,7 @@ package com.example.airbnb.repository;
 
 import com.example.airbnb.model.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,6 +18,11 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
 
     Iterable<Song>  findAllBySingerId(Long id);
+
+    @Query(value = "select * from song where create_at order by create_at desc",nativeQuery = true)
+    Iterable<Song> findAllByCreateAtDesc();
+
+
 
 
 }

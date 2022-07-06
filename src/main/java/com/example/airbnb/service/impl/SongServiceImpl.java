@@ -56,6 +56,10 @@ private SongRepository songRepository;
         return songRepository.findAllBySingerId(id);
     };
 
+    public Iterable<Song> findAllByCreateAtDesc(){
+        return songRepository.findAllByCreateAtDesc();
+    }
+
 
 
 }
