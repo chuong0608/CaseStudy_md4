@@ -52,6 +52,10 @@ private SongRepository songRepository;
         return songRepository.findAllByOrderByViewsAsc();
     }
 
+    public Iterable<Song>  findAllBySingerId(Long id){
+        return songRepository.findAllBySingerId(id);
+    };
+
 
 
 }

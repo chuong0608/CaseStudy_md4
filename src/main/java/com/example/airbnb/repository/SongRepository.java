@@ -16,4 +16,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Iterable<Song>  findAllByOrderByViewsAsc();
 
 
+    Iterable<Song>  findAllBySingerId(Long id);
+
+
 }

@@ -57,11 +57,19 @@ public class SongController {
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
+
+
     //update song
     @PutMapping("/update-song")
     public ResponseEntity<Song> updateSong(@RequestBody Song song) {
         songService.save(song);
         return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-song-by-singer/{id}")
+    public ResponseEntity<Iterable<Song>> findAllBySingerId(@PathVariable Long id) {
+        Iterable<Song> songs = songService.findAllBySingerId(id);
+        return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
     //delete song by user id

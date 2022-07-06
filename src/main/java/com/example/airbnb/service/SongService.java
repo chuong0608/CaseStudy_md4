@@ -5,4 +5,6 @@ import com.example.airbnb.service.GeneralService;
 
 public interface SongService extends GeneralService<Song> {
 
+
+
 }
