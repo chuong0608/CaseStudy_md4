@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class PlayList {
+public class Playlist {
 //id
 //name
 //user
@@ -90,7 +90,7 @@ public class PlayList {
         this.createAt = createAt;
     }
 
-    public PlayList() {
+    public Playlist() {
 
 
     }
