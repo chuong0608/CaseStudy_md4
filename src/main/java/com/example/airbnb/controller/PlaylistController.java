@@ -10,10 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @PropertySource("classpath:application.properties")
@@ -34,7 +31,14 @@ public class PlaylistController {
     @Autowired
     private PlaylistServiceImpl playlistService;
 
-//find all
+    //new playlist
+    @PostMapping()
+    public ResponseEntity<Playlist> addPlaylist(@RequestBody Playlist playlist) {
+        playlistService.save(playlist);
+        return new ResponseEntity<>(playlist, HttpStatus.OK);
+    }
+
+    //find all
     @GetMapping("")
     public ResponseEntity<Iterable<Playlist>> showAllPlaylist() {
         Iterable<Playlist> playlists = playlistService.findAll();
@@ -54,6 +58,27 @@ public class PlaylistController {
     @GetMapping("/sortByCreateAtAsc")
     public ResponseEntity<Iterable<Playlist>> showAllPlaylistByOrderByCreateAtAsc() {
         Iterable<Playlist> playlists = playlistService.findAllByOrderByCreateAtAsc();
+        return new ResponseEntity<>(playlists, HttpStatus.OK);
+    }
+
+    //sort by likes desc
+    @GetMapping("/sortByLikesDesc")
+    public ResponseEntity<Iterable<Playlist>> showAllPlaylistByOrderByLikesDesc() {
+        Iterable<Playlist> playlists = playlistService.findAllByOrderByLikesDesc();
+        return new ResponseEntity<>(playlists, HttpStatus.OK);
+    }
+
+    //sort by likes asc
+    @GetMapping("/sortByLikesAsc")
+    public ResponseEntity<Iterable<Playlist>> showAllPlaylistByOrderByLikesAsc() {
+        Iterable<Playlist> playlists = playlistService.findAllByOrderByLikesAsc();
+        return new ResponseEntity<>(playlists, HttpStatus.OK);
+    }
+
+    //find playlist by user id
+    @GetMapping("/find-by-user-id/{id}")
+    public ResponseEntity<Iterable<Playlist>> showAllPlaylistByUserId(@PathVariable Long id) {
+        Iterable<Playlist> playlists = playlistService.findAllByUserId(id);
         return new ResponseEntity<>(playlists, HttpStatus.OK);
     }
 

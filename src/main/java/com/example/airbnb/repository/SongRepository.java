@@ -8,5 +8,12 @@ import org.springframework.stereotype.Repository;
 public interface SongRepository extends JpaRepository<Song, Long> {
 
 
-    Song findByNameContaining(String name);
+    Iterable<Song> findByNameContaining(String name);
+    Song findByName(String name);
+
+    //find all by views
+    Iterable<Song> findAllByOrderByViewsDesc();
+    Iterable<Song>  findAllByOrderByViewsAsc();
+
+
 }

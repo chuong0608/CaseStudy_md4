@@ -43,6 +43,34 @@ public class SongController {
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
 
+    //find all by views
+    @GetMapping("/all-by-views-desc")
+    public ResponseEntity<Iterable<Song>> showAllSongByViews() {
+        Iterable<Song> songs = songService.findAllByOrderByViewsDesc();
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    //find all by views
+    @GetMapping("/all-by-views-asc")
+    public ResponseEntity<Iterable<Song>> showAllSongByViewsAsc() {
+        Iterable<Song> songs = songService.findAllByOrderByViewsAsc();
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    //update song
+    @PutMapping("/update-song")
+    public ResponseEntity<Song> updateSong(@RequestBody Song song) {
+        songService.save(song);
+        return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
+    //delete song by user id
+
+
+
+
+
+
 
 
 }

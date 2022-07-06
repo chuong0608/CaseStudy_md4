@@ -13,6 +13,10 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     Iterable<Playlist> findAllByOrderByCreateAtDesc();
     Iterable<Playlist> findAllByOrderByCreateAtAsc();
 
+//sort by likes
+    Iterable<Playlist> findAllByOrderByLikesDesc();
+    Iterable<Playlist> findAllByOrderByLikesAsc();
 
-
+    //find playlist by user id
+    Iterable<Playlist> findAllByUserId(Long id);
 }

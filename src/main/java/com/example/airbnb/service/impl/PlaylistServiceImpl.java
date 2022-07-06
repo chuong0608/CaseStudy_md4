@@ -45,4 +45,18 @@ private PlaylistRepository playlistRepository;
     public Iterable<Playlist> findAllByOrderByCreateAtAsc() {
         return playlistRepository.findAllByOrderByCreateAtAsc();
     }
+
+    //sort by likes
+    public Iterable<Playlist> findAllByOrderByLikesDesc() {
+        return playlistRepository.findAllByOrderByLikesDesc();
+    }
+
+    public Iterable<Playlist> findAllByOrderByLikesAsc() {
+        return playlistRepository.findAllByOrderByLikesAsc();
+    }
+
+    //find playlist by user id
+    public Iterable<Playlist> findAllByUserId(Long id) {
+        return playlistRepository.findAllByUserId(id);
+    }
 }

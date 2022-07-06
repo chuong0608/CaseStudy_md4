@@ -53,6 +53,8 @@ public class PermitAllController {
 
 
 
+
+
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
@@ -105,5 +107,13 @@ public class PermitAllController {
         songService.save(song);
         return new ResponseEntity<>(song, HttpStatus.CREATED);
     }
+
+    //find by name containing
+    @GetMapping("/song/{name}")
+    public ResponseEntity<?> findByNameContaining(@PathVariable String name) {
+        Iterable<Song> song = songService.findByNameContaining(name);
+        return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
 
 }
