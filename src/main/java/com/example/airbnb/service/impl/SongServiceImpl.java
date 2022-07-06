@@ -35,6 +35,23 @@ private SongRepository songRepository;
 
     @Override
     public Song findByName(String name) {
+        return songRepository.findByName(name);
+    }
+    //find by name containing
+    public Iterable<Song> findByNameContaining(String name) {
         return songRepository.findByNameContaining(name);
     }
+
+    //find all by views
+
+    public Iterable<Song> findAllByOrderByViewsDesc() {
+        return songRepository.findAllByOrderByViewsDesc();
+    }
+
+    public  Iterable<Song> findAllByOrderByViewsAsc() {
+        return songRepository.findAllByOrderByViewsAsc();
+    }
+
+
+
 }
