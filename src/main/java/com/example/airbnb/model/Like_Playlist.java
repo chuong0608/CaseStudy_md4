@@ -1,11 +1,10 @@
 package com.example.airbnb.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+
+@Entity
 public class Like_Playlist {
 
     //id

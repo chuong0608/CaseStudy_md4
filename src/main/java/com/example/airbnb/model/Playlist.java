@@ -3,6 +3,7 @@ package com.example.airbnb.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Playlist {
@@ -23,15 +24,16 @@ public class Playlist {
 
     @ManyToOne
     private User user;
-
-    @ManyToOne
-    private Song song;
-
     private int likes;
 
     private int feedbacks;
 
     private LocalDateTime createAt;
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Song> songList;
 
 
     public Long getId() {
@@ -58,14 +60,6 @@ public class Playlist {
         this.user = user;
     }
 
-    public Song getSong() {
-        return song;
-    }
-
-    public void setSong(Song song) {
-        this.song = song;
-    }
-
     public int getLikes() {
         return likes;
     }
@@ -90,6 +84,13 @@ public class Playlist {
         this.createAt = createAt;
     }
 
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
+    }
     public Playlist() {
 
 

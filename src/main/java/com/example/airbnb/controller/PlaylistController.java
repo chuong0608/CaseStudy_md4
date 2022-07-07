@@ -1,7 +1,11 @@
 package com.example.airbnb.controller;
 
+import com.example.airbnb.model.Like_Playlist;
 import com.example.airbnb.model.Playlist;
+import com.example.airbnb.model.Song;
+import com.example.airbnb.service.LikePlaylistService;
 import com.example.airbnb.service.PlaylistService;
+import com.example.airbnb.service.SongService;
 import com.example.airbnb.service.impl.JwtService;
 import com.example.airbnb.service.impl.PlaylistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @PropertySource("classpath:application.properties")
@@ -30,6 +37,14 @@ public class PlaylistController {
 
     @Autowired
     private PlaylistServiceImpl playlistService;
+
+
+    @Autowired
+    SongService songService;
+
+
+    @Autowired
+    LikePlaylistService likePlaylistService;
 
     //new playlist
     @PostMapping()
@@ -84,10 +99,44 @@ public class PlaylistController {
 
     // list playlist
     @GetMapping("/find-by-name-playlist")
-    public ResponseEntity findByNamePlaylist(@RequestParam String name ) {
+    public ResponseEntity findByNamePlaylist(@RequestParam String name  ) {
         Playlist playlist = playlistService.findByName(name);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
+
+
+    // post song in playlist
+    @PostMapping("/{idPlaylist}/{idSong}")
+    public ResponseEntity<Playlist> addSongInPlaylist(@PathVariable Long idSong, @PathVariable Long idPlaylist) {
+        Optional<Playlist> playlist = playlistService.findById(idPlaylist);
+        Optional<Song> song = songService.findById(idSong);
+        playlist.get().getSongList().add(song.get());
+        playlistService.save(playlist.get());
+        return new ResponseEntity(playlist, HttpStatus.OK);
+    }
+
+
+//    private boolean checkLike(Playlist playlist, Iterable<Like_Playlist> like_playlists) {
+//        for (Like_Playlist i : like_playlists) {
+//            if (i.getPlayList() == playlist) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+////    @PostMapping("like-playlist/{idPlaylist}")
+////    public ResponseEntity<Playlist> addLikePlaylist(@PathVariable Long idPlaylist, @RequestBody Like_Playlist like_playlist) {
+////        Optional<Playlist> playlistOptional = playlistService.findById(idPlaylist);
+////        Optional<Like_Playlist> optionalLike_playlist = likePlaylistService.findById(playlistOptional.get().getId());
+////        if(optionalLike_playlist==null){
+////            like_playlist.;
+////        }
+////
+////
+////        playlistService.save(playlist);
+////        return new ResponseEntity(playlist, HttpStatus.OK);
+//    }
+
 
 
 }
