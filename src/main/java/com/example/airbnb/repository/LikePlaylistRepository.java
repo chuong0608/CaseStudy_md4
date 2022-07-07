@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LikePlaylistRepository extends JpaRepository<Like_Playlist,Long> {
 
+    Like_Playlist findByUserIdAndAndPlayListId(Long userID,Long playlistId);
+
 
 }

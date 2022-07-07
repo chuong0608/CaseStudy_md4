@@ -3,9 +3,11 @@ package com.example.airbnb.controller;
 import com.example.airbnb.model.Like_Playlist;
 import com.example.airbnb.model.Playlist;
 import com.example.airbnb.model.Song;
+import com.example.airbnb.model.User;
 import com.example.airbnb.service.LikePlaylistService;
 import com.example.airbnb.service.PlaylistService;
 import com.example.airbnb.service.SongService;
+import com.example.airbnb.service.UserService;
 import com.example.airbnb.service.impl.JwtService;
 import com.example.airbnb.service.impl.PlaylistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class PlaylistController {
 
     @Autowired
     LikePlaylistService likePlaylistService;
+
+    @Autowired
+    UserService userService;
 
     //new playlist
     @PostMapping()
@@ -116,26 +121,6 @@ public class PlaylistController {
     }
 
 
-//    private boolean checkLike(Playlist playlist, Iterable<Like_Playlist> like_playlists) {
-//        for (Like_Playlist i : like_playlists) {
-//            if (i.getPlayList() == playlist) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-////    @PostMapping("like-playlist/{idPlaylist}")
-////    public ResponseEntity<Playlist> addLikePlaylist(@PathVariable Long idPlaylist, @RequestBody Like_Playlist like_playlist) {
-////        Optional<Playlist> playlistOptional = playlistService.findById(idPlaylist);
-////        Optional<Like_Playlist> optionalLike_playlist = likePlaylistService.findById(playlistOptional.get().getId());
-////        if(optionalLike_playlist==null){
-////            like_playlist.;
-////        }
-////
-////
-////        playlistService.save(playlist);
-////        return new ResponseEntity(playlist, HttpStatus.OK);
-//    }
 
 
 

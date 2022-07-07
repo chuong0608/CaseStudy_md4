@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 @Service
-public class LikePlaylistService implements com.example.airbnb.service.LikePlaylistService {
+public class LikePlaylistServiceImpl implements com.example.airbnb.service.LikePlaylistService {
 
     @Autowired
     LikePlaylistRepository likePlaylistRepository;
@@ -39,5 +39,11 @@ public class LikePlaylistService implements com.example.airbnb.service.LikePlayl
     @Override
     public Like_Playlist findByName(String name) {
         return null;
+    }
+
+
+    @Override
+    public Like_Playlist findByUserIdAndAndPlayListId(Long userID,Long playlistId){
+        return likePlaylistRepository.findByUserIdAndAndPlayListId(userID,playlistId);
     }
 }
