@@ -54,6 +54,7 @@ public class PlaylistController {
     //new playlist
     @PostMapping()
     public ResponseEntity<Playlist> addPlaylist(@RequestBody Playlist playlist) {
+
         playlistService.save(playlist);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
@@ -116,6 +117,17 @@ public class PlaylistController {
         Optional<Playlist> playlist = playlistService.findById(idPlaylist);
         Optional<Song> song = songService.findById(idSong);
         playlist.get().getSongList().add(song.get());
+        playlistService.save(playlist.get());
+        return new ResponseEntity(playlist, HttpStatus.OK);
+    }
+
+
+    // post song in playlist
+    @PostMapping("/delete/{idPlaylist}/{idSong}")
+    public ResponseEntity<Playlist> DeleteSongInPlaylist(@PathVariable Long idSong, @PathVariable Long idPlaylist) {
+        Optional<Playlist> playlist = playlistService.findById(idPlaylist);
+        Optional<Song> song = songService.findById(idSong);
+        playlist.get().getSongList().remove(song.get());
         playlistService.save(playlist.get());
         return new ResponseEntity(playlist, HttpStatus.OK);
     }

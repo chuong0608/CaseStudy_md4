@@ -55,4 +55,11 @@ public class SingerController {
     public ResponseEntity<Iterable<Singer>> findAll() {
         return new ResponseEntity<>(singerService.findAll(), HttpStatus.OK);
     }
+
+    // find by name singer
+    @GetMapping("/find-by-name-singer")
+    public  ResponseEntity findByNameSinger(@RequestParam String name){
+        Singer singer = singerService.findByName(name);
+        return new ResponseEntity<>(singer,HttpStatus.OK);
+    }
 }

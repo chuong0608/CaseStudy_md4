@@ -59,4 +59,9 @@ private PlaylistRepository playlistRepository;
     public Iterable<Playlist> findAllByUserId(Long id) {
         return playlistRepository.findAllByUserId(id);
     }
+
+    @Override
+    public Iterable<Playlist> top3PlaylistsOrderByLikesDesc() {
+        return playlistRepository.top3PlaylistsOrderByLikesDesc();
+    }
 }

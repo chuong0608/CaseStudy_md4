@@ -61,5 +61,15 @@ private SongRepository songRepository;
     }
 
 
+    @Override
+    public Iterable<Song> top5BestViewsSong() {
+        return songRepository.top5BestViewsSong();
+    }
+
+    @Override
+    public Iterable<Song> top5SongsMostLikes() {
+        return songRepository.top5SongsMostLikes();
+    }
+
 
 }

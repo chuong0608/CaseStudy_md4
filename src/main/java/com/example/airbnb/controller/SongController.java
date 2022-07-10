@@ -78,6 +78,22 @@ public class SongController {
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
+
+    // top 5 song views most
+    @GetMapping("/top5-song-most-views")
+    public ResponseEntity<Iterable<Song>> top5ViewsSong() {
+        Iterable<Song> songs = songService.top5BestViewsSong();
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    // top 5 song likes most
+
+    @GetMapping("/top5-song-most-like")
+    public ResponseEntity<Iterable<Song>> top5SongMostViews(){
+        Iterable<Song> songs = songService.top5SongsMostLikes();
+        return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+
     //delete song by user id
 
 

@@ -22,6 +22,12 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query(value = "select * from song where create_at order by create_at desc",nativeQuery = true)
     Iterable<Song> findAllByCreateAtDesc();
 
+    @Query(value = "select * from song  order by views desc limit 5",nativeQuery = true)
+    Iterable<Song> top5BestViewsSong();
+
+    @Query(value = "select * from song order by likes desc limit 5",nativeQuery = true)
+    Iterable<Song> top5SongsMostLikes();
+
 
 
 

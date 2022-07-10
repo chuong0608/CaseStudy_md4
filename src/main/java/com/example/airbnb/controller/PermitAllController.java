@@ -1,12 +1,7 @@
 package com.example.airbnb.controller;
 
-import com.example.airbnb.model.JwtResponse;
-import com.example.airbnb.model.Role;
-import com.example.airbnb.model.Song;
-import com.example.airbnb.model.User;
-import com.example.airbnb.service.RoleService;
-import com.example.airbnb.service.SongService;
-import com.example.airbnb.service.UserService;
+import com.example.airbnb.model.*;
+import com.example.airbnb.service.*;
 import com.example.airbnb.service.impl.JwtService;
 import com.example.airbnb.service.impl.SongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +46,11 @@ public class PermitAllController {
     @Autowired
     private SongServiceImpl songService;
 
+    @Autowired
+    private PlaylistService playlistService;
+
+    @Autowired
+    private SingerService singerService;
 
 
 
@@ -113,6 +113,41 @@ public class PermitAllController {
     public ResponseEntity<?> findByNameContaining(@PathVariable String name) {
         Iterable<Song> song = songService.findByNameContaining(name);
         return new ResponseEntity<>(song, HttpStatus.OK);
+    }
+
+    //top 5 song views most
+    @GetMapping("/song/top5-song-most-views")
+    public ResponseEntity<Iterable<Song>> top5ViewsSong() {
+        Iterable<Song> songs = songService.top5BestViewsSong();
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    // list song by createAt desc
+    @GetMapping("/song/list-song-by-create-desc")
+    public ResponseEntity<Iterable<Song>> findAllBySingerId() {
+        Iterable<Song> songs = songService.findAllByCreateAtDesc();
+        return new ResponseEntity<>(songs, HttpStatus.OK);
+    }
+
+    //top5 song like most
+    @GetMapping("/song/top5-song-most-like")
+    public ResponseEntity<Iterable<Song>> top5SongMostViews(){
+        Iterable<Song> songs = songService.top5SongsMostLikes();
+        return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+
+    //top3 playlists like most
+    @GetMapping("/playlists/top3-playlists-most-like")
+    public ResponseEntity<Iterable<Playlist>> top3PlaylistsMostViews(){
+        Iterable<Playlist> playlists = playlistService.top3PlaylistsOrderByLikesDesc();
+        return new ResponseEntity<>(playlists,HttpStatus.OK);
+    }
+
+    // find by name singer
+    @GetMapping("/singer/find-by-name-singer")
+    public  ResponseEntity findByNameSinger(@RequestParam String name){
+        Singer singer = singerService.findByName(name);
+        return new ResponseEntity<>(singer,HttpStatus.OK);
     }
 
 

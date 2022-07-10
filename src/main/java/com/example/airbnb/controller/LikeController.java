@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
-@RequestMapping("/api/like")
+@RequestMapping("/api/likes")
 public class LikeController {
 
 
@@ -96,7 +96,6 @@ public class LikeController {
 
     @PostMapping("dislike-playlist/{idPlaylist}/{idUser}")
     public ResponseEntity<Playlist> disLikePlaylist(@PathVariable Long idPlaylist, @PathVariable Long idUser) {
-        Like_Playlist like_playlist = new Like_Playlist();
         Playlist playlistOptional = playlistService.findById(idPlaylist).get();
         User userOptional = userService.findById(idUser).get();
         Like_Playlist lastLike= likePlaylistService.findByUserIdAndAndPlayListId(userOptional.getId(),playlistOptional.getId());
@@ -105,7 +104,7 @@ public class LikeController {
             int oldLikes = playlistOptional.getLikes();
             oldLikes = oldLikes == 0 ? 0:oldLikes;
             playlistOptional.setLikes(oldLikes-1);
-            likePlaylistService.save(like_playlist);
+            likePlaylistService.save(lastLike);
         }
         playlistService.save(playlistOptional);
         return new ResponseEntity(playlistOptional, HttpStatus.OK);
@@ -138,7 +137,6 @@ public class LikeController {
 
     @PostMapping("dislike-song/{idSong}/{idUser}")
     public ResponseEntity<Song> disLikeSong(@PathVariable Long idSong, @PathVariable Long idUser) {
-        Like_Song like_song = new Like_Song();
         Song song = songService.findById(idSong).get();
         User user = userService.findById(idUser).get();
         Like_Song lastLikeSong= likeSongService.findByUserIdAndSongId(user.getId(),song.getId());
@@ -147,7 +145,7 @@ public class LikeController {
             int oldLikes = song.getLikes();
             oldLikes = oldLikes == 0 ? 0:oldLikes;
             song.setLikes(oldLikes-1);
-            likeSongService.save(like_song);
+            likeSongService.save(lastLikeSong);
         }
         songService.save(song);
         return new ResponseEntity(song, HttpStatus.OK);

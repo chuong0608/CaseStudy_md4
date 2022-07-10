@@ -2,6 +2,7 @@ package com.example.airbnb.repository;
 
 import com.example.airbnb.model.Playlist;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,4 +20,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
 
     //find playlist by user id
     Iterable<Playlist> findAllByUserId(Long id);
+
+
+    @Query(value = "select * from playlist order by likes desc limit 3",nativeQuery = true)
+    Iterable<Playlist> top3PlaylistsOrderByLikesDesc();
 }
