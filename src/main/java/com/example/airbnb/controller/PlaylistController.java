@@ -134,7 +134,17 @@ public class PlaylistController {
         return new ResponseEntity(playlist, HttpStatus.OK);
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Playlist> finById(@PathVariable Long id) {
+        Optional<Playlist> playlistOptional=playlistService.findById(id);
+        if(!playlistOptional.isPresent()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(playlistOptional.get(), HttpStatus.OK);
+    }
     // Update Playlist
+
 
     @PutMapping("/update-playlist/{id}")
     public ResponseEntity<Playlist> updatePlaylist(@RequestBody Playlist playlist,@PathVariable Long id) {
