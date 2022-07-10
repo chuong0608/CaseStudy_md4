@@ -11,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
 @RestController
 @PropertySource("classpath:application.properties")
 @CrossOrigin("*")
@@ -39,6 +43,8 @@ public class SongController {
     //add new song
     @PostMapping("/new-song")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        song.setCreateAt(localDateTime);
         songService.save(song);
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
@@ -58,8 +64,15 @@ public class SongController {
     }
 
     //update song
-    @PutMapping("/update-song")
-    public ResponseEntity<Song> updateSong(@RequestBody Song song) {
+    @PutMapping("/update-song/{id}")
+    public ResponseEntity<Song> updateSong(@RequestBody Song song,@PathVariable Long id) {
+        Optional<Song> songOptional = songService.findById(id);
+        if (!songOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        song.setId(songOptional.get().getId());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        song.setCreateAt(localDateTime);
         songService.save(song);
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
@@ -92,6 +105,13 @@ public class SongController {
     public ResponseEntity<Iterable<Song>> top5SongMostViews(){
         Iterable<Song> songs = songService.top5SongsMostLikes();
         return new ResponseEntity<>(songs,HttpStatus.OK);
+    }
+
+    //find by name containing
+    @GetMapping("/find-by-name/{name}")
+    public ResponseEntity<?> findByNameContaining(@PathVariable String name) {
+        Iterable<Song> song = songService.findByNameContaining(name);
+        return new ResponseEntity<>(song, HttpStatus.OK);
     }
 
     //delete song by user id

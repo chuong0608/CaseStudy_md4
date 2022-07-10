@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,8 @@ public class PlaylistController {
     //new playlist
     @PostMapping()
     public ResponseEntity<Playlist> addPlaylist(@RequestBody Playlist playlist) {
-
+        LocalDateTime localDateTime = LocalDateTime.now();
+        playlist.setCreateAt(localDateTime);
         playlistService.save(playlist);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
@@ -130,6 +132,21 @@ public class PlaylistController {
         playlist.get().getSongList().remove(song.get());
         playlistService.save(playlist.get());
         return new ResponseEntity(playlist, HttpStatus.OK);
+    }
+
+    // Update Playlist
+
+    @PutMapping("/update-playlist/{id}")
+    public ResponseEntity<Playlist> updatePlaylist(@RequestBody Playlist playlist,@PathVariable Long id) {
+        Optional<Playlist> playlistOptional = playlistService.findById(id);
+        if (!playlistOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        playlist.setId(playlistOptional.get().getId());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        playlist.setCreateAt(localDateTime);
+        playlistService.save(playlist);
+        return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
 
 
